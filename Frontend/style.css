@@ -1,0 +1,79 @@
+/* Estilos base, ajuste conforme necessário */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+}
+
+#moduloContainer, #aulaContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.modulo, .aula {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.modulo:hover, .aula:hover {
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+}
+
+button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background: #5c85d6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #4a70c1;
+}
+
+/* Estilos para o formulário de edição */
+.editForm {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin: auto;
+}
+
+.editForm label {
+    margin-top: 10px;
+}
+
+.editForm input, .editForm select {
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.editForm button {
+    margin-top: 20px;
+}
