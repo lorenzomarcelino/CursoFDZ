@@ -3,21 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Progresso do Curso</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Meu Progresso nos Cursos</title>
+    <link rel="stylesheet" href="style.css"> <!-- Certifique-se de que o arquivo CSS está correto -->
+    <script src="script.js"></script> <!-- Certifique-se de que o arquivo JavaScript está correto -->
 </head>
 <body>
     <header>
-        <h1>Comunidade Filosofia do Zero</h1>
+        <h1>Portal do Aluno</h1>
     </header>
-    <main>
-        <div id="moduloContainer">
-            <!-- Módulos serão carregados aqui -->
+    <aside id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="#" onclick="mostrarProgresso()">Meu Progresso</a></li>
+                <li><a href="#" onclick="mostrarCursos()">Cursos</a></li>
+                <li><a href="#" onclick="adicionarCurso()">Adicionar Curso</a></li>
+                <li><a href="#" onclick="adicionarAula()">Adicionar Aula</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <main id="mainContent">
+        <div id="progressoContainer" style="display: none;">
+            <!-- Progresso dos cursos será exibido aqui -->
+            <h2>Progresso Atual</h2>
+            <!-- O conteúdo aqui será dinamicamente alterado pelo JavaScript -->
+        </div>
+        <div id="cursosContainer" style="display: none;">
+            <h2>Cursos Disponíveis</h2>
+            <!-- Lista de cursos será exibida aqui -->
+        </div>
+        <div id="moduloContainer" style="display: none;">
+            <h2>Módulos do Curso</h2>
+            <!-- Módulos do curso selecionado serão exibidos aqui -->
         </div>
         <div id="aulaContainer" style="display: none;">
+            <h2>Aulas do Módulo</h2>
             <!-- Aulas do módulo selecionado serão exibidas aqui -->
         </div>
-    </main>
-    <script src="script.js"></script>
+        <div id="adicionarCursoContainer" style="display: none;">
+            <!-- Conteúdo da seção Adicionar Curso -->
+        </div>
+        <div id="adicionarAulaContainer" style="display: none;">
+            <!-- Conteúdo da seção Adicionar Aula -->
+        <div class="aula-container">
+            <div class="linha-vertical"></div>
+            <div class="aula-wrapper">
+                <div class="aula">
+                    <div class="bolinha"></div>
+                    <!-- Conteúdo da primeira aula -->
+                </div>
+            </div>
+            <div class="aula-wrapper">
+                <div class="aula">
+                    <!-- Conteúdo da segunda aula -->
+                </div>
+                <div class="bolinha"></div>
+            </div>
+            <!-- Adicione mais aulas conforme necessário -->
+        </div>                       
+    </main>    
+    <footer>
+        <p>&copy; 2023 Portal do Aluno - Lorenzo Marcelino</p>
+    </footer>
 </body>
 </html>

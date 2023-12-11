@@ -1,9 +1,14 @@
-/* Estilos base, ajuste conforme necessário */
-body, html {
-    height: 100%;
+/* Reset básico para remover as margens e paddings padrões */
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos base */
+body, html {
     font-family: Arial, sans-serif;
-    background: #f0f0f0;
+    background: #303030; /* Cor de fundo ajustada para cinza escuro */
 }
 
 header {
@@ -13,67 +18,232 @@ header {
     text-align: center;
 }
 
-main {
+/* Barra lateral */
+#sidebar {
+    width: 250px; /* Largura da barra lateral */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #333;
+    color: #fff;
+    overflow: auto;
+}
+
+/* Conteúdo principal */
+#mainContent {
+    margin-left: 250px; /* Deslocar o conteúdo principal para dar espaço à barra lateral */
+    padding: 20px;
+    min-height: 100vh;
+    background: #303030; /* Cor de fundo do conteúdo principal */
+}
+
+/* Estilos para a navegação */
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 15px 20px;
+    transition: background 0.3s ease;
+}
+
+nav ul li a:hover, nav ul li a.active {
+    background: #575757;
+}
+
+/* Estilos para as seções de conteúdo */
+.section {
+    display: none; /* Inicialmente esconde todas as seções */
+    padding: 20px;
+    border-radius: 8px;
+    background: white;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section.active {
+    display: block; /* Mostra a seção ativa */
+}
+
+/* Estilos adicionais para normalizar o tamanho das imagens */
+.section img {
+    max-width: 100%; /* Assegura que as imagens não excedam a largura da seção */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+/* Estilos para cabeçalhos de seções */
+.section h2 {
+    color: #fff;
+}
+
+/* Estilos para o rodapé */
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Estilos para os contêineres de curso */
+/* Estilos para os contêineres de curso */
+.curso-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Distribui os cursos da esquerda para a direita */
+    gap: 20px; /* Espaçamento entre os cursos */
+    padding: 20px; /* Espaçamento dentro do contêiner de curso */
+}
+
+.curso {
+    width: calc(33.333% - 20px); /* Defina um tamanho fixo para os cursos e considere a margem entre eles */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza o conteúdo do curso verticalmente */
+}
+
+.curso img {
+    width: 300px; /* Aumente o tamanho das imagens */
+    height: 450px; /* Aumente a altura das imagens */
+    object-fit: cover; /* Corta a imagem para preencher o espaço designado */
+    border-radius: 8px;
+    margin-bottom: 20px; /* Adicione margem inferior para separar as imagens verticalmente */
+}
+
+/* Media query para ajustes responsivos */
+@media (max-width: 1024px) {
+    .curso {
+        width: calc(50% - 20px); /* Ajuste para telas menores, dois cursos por linha */
+    }
+}
+
+@media (max-width: 600px) {
+    .curso {
+        width: 100%; /* Ajuste para telas muito pequenas, um curso por linha */
+    }
+}
+
+.modulo-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
     padding: 20px;
 }
 
-#moduloContainer, #aulaContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 20px;
-}
-
-.modulo, .aula {
-    border: 1px solid #ddd;
-    padding: 10px;
+.modulo {
+    width: 300px; /* Defina o tamanho desejado para as imagens dos módulos */
+    height: 450px;
+    object-fit: cover;
     border-radius: 8px;
-    background: #fff;
-    cursor: pointer;
-    width: 200px;
-    height: 200px;
+}
+
+@media (max-width: 1024px) {
+    .modulo {
+        width: calc(50% - 20px); /* Ajuste para telas menores, dois cursos por linha */
+    }
+}
+
+@media (max-width: 600px) {
+    .modulo {
+        width: 100%; /* Ajuste para telas muito pequenas, um curso por linha */
+    }
+}
+
+/* Reseta a margem e define box-sizing para evitar problemas de largura */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container principal que segura a linha e as aulas */
+.aula-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    position: relative;
+    padding-top: 20px; /* Espaço para a linha de tempo no topo */
+    gap: 20px; /* Espaço entre as aulas */
 }
 
-.modulo:hover, .aula:hover {
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+/* Linha vertical central */
+.linha-vertical {
+    position: absolute;
+    top: 50%; /* Inicia no meio da tela */
+    transform: translateY(-50%); /* Desloca para cima pela metade da sua altura */
+    height: calc(100% - 40px); /* Ajuste a altura conforme necessário */
+    left: 50%;
+    width: 2px;
+    background-color: #363739;
+    z-index: 1;
 }
 
-button {
-    margin-top: 10px;
-    padding: 5px 10px;
-    background: #5c85d6;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #4a70c1;
-}
-
-/* Estilos para o formulário de edição */
-.editForm {
+/* Estilo para os containers de aula */
+.aula {
+    background-color: #404040;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px; /* Largura fixa para as aulas */
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
-    max-width: 300px;
-    margin: auto;
+    align-items: center;
 }
 
-.editForm label {
-    margin-top: 10px;
+/* Alternar aulas para a esquerda e direita da linha vertical */
+.aula:nth-child(odd) {
+    margin-right: auto;
 }
 
-.editForm input, .editForm select {
-    padding: 5px;
-    margin-top: 5px;
+.aula:nth-child(even) {
+    margin-left: auto;
 }
 
-.editForm button {
-    margin-top: 20px;
+/* Bolinhas alinhadas com a linha vertical */
+.aula::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #fff;
+    top: 50%; /* Alinha com a metade da altura da aula */
+    left: -10px; /* Posicionamento em relação ao lado esquerdo da aula */
+    transform: translateX(-50%); /* Centraliza horizontalmente em relação ao lado da aula */
+    z-index: 3;
+}
+
+.aula:nth-child(odd)::before {
+    left: 100%;
+    transform: translateX(-50%);
+}
+
+.aula:nth-child(even)::before {
+    left: -20px;
+}
+
+/* Resposta para telas menores */
+@media (max-width: 768px) {
+    .aula {
+        width: 90%; /* Ajuste para telas menores */
+        margin-left: 5%; /* Ajuste para telas menores */
+        margin-right: 5%; /* Ajuste para telas menores */
+    }
+
+    .linha-vertical {
+        display: none;
+    }
+
+    .aula::before {
+        display: none;
+    }
 }
