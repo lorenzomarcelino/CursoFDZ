@@ -5,22 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Progresso nos Cursos</title>
     <link rel="stylesheet" href="style.css"> <!-- Certifique-se de que o arquivo CSS está correto -->
-    <script src="script.js"></script> <!-- Certifique-se de que o arquivo JavaScript está correto -->
 </head>
 <body>
     <header>
         <h1>Portal do Aluno</h1>
+        <button id="toggleSidebarButton" class="toggle-button">
+            <div class="menu-icon">
+                <img src="icons/bars-solid.svg" alt="Abrir Barra Lateral">
+            </div>
+        </button>
     </header>
-    <aside id="sidebar">
+    <div id="sidebar">
         <nav>
             <ul>
-                <li><a href="#" onclick="mostrarProgresso()">Meu Progresso</a></li>
-                <li><a href="#" onclick="mostrarCursos()">Cursos</a></li>
-                <li><a href="#" onclick="adicionarCurso()">Adicionar Curso</a></li>
-                <li><a href="#" onclick="adicionarAula()">Adicionar Aula</a></li>
+                <li><a href="#" onclick="mostrarProgresso()"><i class="fa-solid fa-clipboard-list"></i> Meu Progresso</a></li>
+                <li><a href="#" onclick="mostrarCursos()"><i class="fa-solid fa-book-open"></i> Cursos</a></li>
+                <li><a href="#" onclick="adicionarCurso()"><i class="fa-solid fa-plus"></i> Adicionar Curso</a></li>
+                <li><a href="#" onclick="adicionarAula()"><i class="fa-solid fa-plus"></i> Adicionar Aula</a></li>
             </ul>
         </nav>
-    </aside>
+    </div>
     <main id="mainContent">
         <div id="progressoContainer" style="display: none;">
             <!-- Progresso dos cursos será exibido aqui -->
@@ -64,5 +68,6 @@
     <footer>
         <p>&copy; 2023 Portal do Aluno - Lorenzo Marcelino</p>
     </footer>
+    <script src="script.js"></script> <!-- Certifique-se de que o arquivo JavaScript está correto -->
 </body>
 </html>

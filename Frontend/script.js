@@ -22,12 +22,46 @@ document.addEventListener('DOMContentLoaded', function() {
         // Implemente a lógica para adicionar aula aqui
     };
 
+    // Selecione o botão e a barra lateral
+    const toggleSidebarButton = document.getElementById('toggleSidebarButton');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent'); // Adicione uma referência ao elemento principal
+
+    // Variável para controlar o estado da barra lateral
+    let isSidebarVisible = false;
+
+    // Função para alternar a visibilidade da barra lateral
+    function toggleSidebar() {
+        if (isSidebarVisible) {
+            sidebar.style.left = '-250px'; // Oculta a barra lateral
+            mainContent.style.marginLeft = '0'; // Ajusta a margem do conteúdo principal
+        } else {
+            sidebar.style.left = '0'; // Mostra a barra lateral
+            mainContent.style.marginLeft = '250px'; // Ajusta a margem do conteúdo principal
+        }
+        isSidebarVisible = !isSidebarVisible; // Inverte o estado da barra lateral
+    }
+
+    // Adicione um ouvinte de evento para o botão "Toggle Sidebar"
+    toggleSidebarButton.addEventListener('click', toggleSidebar);
+
+    // Função para mostrar a seção desejada
     function mostrarSeção(seção) {
         const todasSecoes = ['progressoContainer', 'cursosContainer', 'moduloContainer', 'aulaContainer', 'adicionarCursoContainer', 'adicionarAulaContainer'];
         todasSecoes.forEach(id => {
-            document.getElementById(id).style.display = (id === seção) ? 'block' : 'none';
+            const elemento = document.getElementById(id);
+            if (id === seção) {
+                elemento.style.display = 'block'; // Mostra a seção desejada
+            } else {
+                elemento.style.display = 'none'; // Oculta outras seções
+            }
         });
     }
+
+    // Exemplo de uso da função mostrarSeção
+    mostrarSeção('progressoContainer'); // Pode ser chamada com a seção desejada
+
+
 
     function carregarCursos() {
         fetch(`${baseUrl}/dados`)
@@ -159,6 +193,43 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Editando aula:', nomeAula);
         // Implemente a lógica de edição aqui
     }
+
+    function ajustarLayout() {
+        const larguraDaTela = window.innerWidth;
+        const cursoContainer = document.querySelector('.curso-container');
+        const moduloContainer = document.querySelector('.modulo-container');
+    
+        // Verifique se a barra lateral está aberta
+        const sidebar = document.getElementById('sidebar');
+        const isSidebarOpen = window.getComputedStyle(sidebar).left === '0px';
+    
+        // Calcule o número de colunas com base na presença da barra lateral
+        let colunas = isSidebarOpen ? 2 : 3;
+    
+        // Calcule a largura com base no número de colunas
+        const largura = `calc(${100 / colunas}% - 20px)`;
+    
+        // Aplique a largura aos elementos de curso e módulo
+        const cursos = cursoContainer.querySelectorAll('.curso');
+        const modulos = moduloContainer.querySelectorAll('.modulo');
+    
+        cursos.forEach(curso => {
+            curso.style.width = largura;
+        });
+    
+        modulos.forEach(modulo => {
+            modulo.style.width = largura;
+        });
+    }
+    
+    // Chame a função para ajustar o layout quando a página for carregada
+    window.addEventListener('load', ajustarLayout);
+    
+    // Chame a função para ajustar o layout quando a janela for redimensionada
+    window.addEventListener('resize', ajustarLayout);
+    
+    // Chame a função ao abrir/fechar a barra lateral
+    toggleSidebarButton.addEventListener('click', ajustarLayout);
     
     function ajustarAlturaLinha() {
         const linhaVertical = document.querySelector('.linha-vertical');
@@ -170,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ... quando suas aulas forem adicionadas ...
     ajustarAlturaLinha(); // Isso ajustará a altura da linha
-    
+
     function exibirProgresso() {
         const progressoContainer = document.getElementById('progressoContainer');
         progressoContainer.innerHTML = '';

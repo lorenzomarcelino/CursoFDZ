@@ -11,28 +11,85 @@ body, html {
     background: #303030; /* Cor de fundo ajustada para cinza escuro */
 }
 
+body.sidebar-open #mainContent {
+    margin-left: 250px; /* Largura da barra lateral */
+}
+
+#mainContent {
+    margin-left: 0;
+    transition: margin-left 0.3s; /* Adicione uma transição suave à margem esquerda */
+}
+
 header {
     background: #333;
     color: #fff;
     padding: 10px;
     text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2; /* Certifique-se de que o cabeçalho esteja em um nível superior */
 }
 
-/* Barra lateral */
+/* Estilos para o rodapé */
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 2; /* Certifique-se de que o rodapé esteja em um nível superior */
+}
+
+/* Estilos para a barra lateral */
 #sidebar {
     width: 250px; /* Largura da barra lateral */
     position: fixed;
     top: 0;
-    left: 0;
+    left: -250px; /* Inicialmente oculto */
     height: 100%;
     background: #333;
     color: #fff;
     overflow: auto;
+    z-index: 1; /* Certifique-se de que a barra lateral esteja em um nível inferior */
+    padding-top: 60px; /* Altura do cabeçalho */
+    transition: left 0.3s; /* Adicione uma transição suave */
+}
+
+/* Estilos para o botão de abrir a barra lateral */
+#toggleSidebarButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 3; /* Certifique-se de que o botão esteja em um nível superior */
+}
+
+/* Estilos para o ícone de menu (três tracinhos) */
+.menu-icon img {
+    width: 40px;
+    height: auto;
+}
+
+.toggle-button:focus,
+.hide-button:focus {
+    outline: none;
+}
+
+/* Estilos para a barra lateral oculta inicialmente */
+#sidebar.hidden {
+    transform: translateX(-100%);
 }
 
 /* Conteúdo principal */
 #mainContent {
-    margin-left: 250px; /* Deslocar o conteúdo principal para dar espaço à barra lateral */
+    margin-left: 0;
     padding: 20px;
     min-height: 100vh;
     background: #303030; /* Cor de fundo do conteúdo principal */
@@ -80,32 +137,16 @@ nav ul li a:hover, nav ul li a.active {
     color: #fff;
 }
 
-/* Estilos para o rodapé */
-footer {
-    background: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-/* Estilos para os contêineres de curso */
 /* Estilos para os contêineres de curso */
 .curso-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start; /* Distribui os cursos da esquerda para a direita */
-    gap: 20px; /* Espaçamento entre os cursos */
-    padding: 20px; /* Espaçamento dentro do contêiner de curso */
+    gap: 20px;
+    padding: 20px;
 }
 
 .curso {
-    width: calc(33.333% - 20px); /* Defina um tamanho fixo para os cursos e considere a margem entre eles */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centraliza o conteúdo do curso verticalmente */
+    width: calc(33.333% - 20px);
 }
 
 .curso img {
@@ -124,68 +165,50 @@ footer {
 }
 
 @media (max-width: 600px) {
-    .curso {
-        width: 100%; /* Ajuste para telas muito pequenas, um curso por linha */
+    body.sidebar-open #mainContent {
+        margin-left: 0; /* Remova a margem quando a barra lateral estiver aberta em telas pequenas */
+    }
+
+    #sidebar {
+        left: 0; /* Mantenha a barra lateral visível em telas pequenas */
     }
 }
 
 .modulo-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
     gap: 20px;
     padding: 20px;
 }
 
 .modulo {
-    width: 300px; /* Defina o tamanho desejado para as imagens dos módulos */
-    height: 450px;
-    object-fit: cover;
-    border-radius: 8px;
+    width: calc(33.333% - 20px);
 }
 
 @media (max-width: 1024px) {
-    .modulo {
-        width: calc(50% - 20px); /* Ajuste para telas menores, dois cursos por linha */
+    .curso, .modulo {
+        width: calc(50% - 20px);
     }
 }
 
 @media (max-width: 600px) {
-    .modulo {
-        width: 100%; /* Ajuste para telas muito pequenas, um curso por linha */
+    .curso, .modulo {
+        width: 100%;
     }
 }
 
-/* Reseta a margem e define box-sizing para evitar problemas de largura */
-*, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Container principal que segura a linha e as aulas */
-.aula-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    padding-top: 20px; /* Espaço para a linha de tempo no topo */
-    gap: 20px; /* Espaço entre as aulas */
-}
-
-/* Linha vertical central */
+/* Linha vertical central para a linha do tempo */
 .linha-vertical {
     position: absolute;
-    top: 50%; /* Inicia no meio da tela */
-    transform: translateY(-50%); /* Desloca para cima pela metade da sua altura */
-    height: calc(100% - 40px); /* Ajuste a altura conforme necessário */
-    left: 50%;
+    left: calc(50% + 125px); /* Ajuste considerando a largura da barra lateral */
+    top: 0;
+    bottom: 0;
     width: 2px;
-    background-color: #363739;
+    background-color: #fff;
     z-index: 1;
 }
 
-/* Estilo para os containers de aula */
+/* Estilos para os contêineres de aula */
 .aula {
     background-color: #404040;
     color: #fff;
@@ -194,18 +217,16 @@ footer {
     width: 300px; /* Largura fixa para as aulas */
     position: relative;
     z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin-bottom: 40px; /* Espaçamento entre aulas */
 }
 
-/* Alternar aulas para a esquerda e direita da linha vertical */
+/* Posicionamento das aulas e bolinhas */
 .aula:nth-child(odd) {
-    margin-right: auto;
+    margin-left: calc(50% + 130px); /* Ajuste para aulas ímpares */
 }
 
 .aula:nth-child(even) {
-    margin-left: auto;
+    margin-right: calc(50% + 130px); /* Ajuste para aulas pares */
 }
 
 /* Bolinhas alinhadas com a linha vertical */
@@ -216,34 +237,26 @@ footer {
     height: 20px;
     border-radius: 50%;
     background-color: #fff;
-    top: 50%; /* Alinha com a metade da altura da aula */
-    left: -10px; /* Posicionamento em relação ao lado esquerdo da aula */
-    transform: translateX(-50%); /* Centraliza horizontalmente em relação ao lado da aula */
+    top: 10px;
+    left: -125px; /* Posicionamento das bolinhas para aulas ímpares */
     z-index: 3;
 }
 
-.aula:nth-child(odd)::before {
-    left: 100%;
-    transform: translateX(-50%);
-}
-
 .aula:nth-child(even)::before {
-    left: -20px;
+    left: auto;
+    right: -125px; /* Posicionamento das bolinhas para aulas pares */
 }
 
-/* Resposta para telas menores */
+/* Estilos para botão de editar e outros estilos existentes... */
+
+/* Adaptações para telas menores */
 @media (max-width: 768px) {
+    .linha-vertical, .aula::before {
+        display: none; /* Esconde a linha e bolinhas em telas menores */
+    }
+
     .aula {
-        width: 90%; /* Ajuste para telas menores */
-        margin-left: 5%; /* Ajuste para telas menores */
-        margin-right: 5%; /* Ajuste para telas menores */
-    }
-
-    .linha-vertical {
-        display: none;
-    }
-
-    .aula::before {
-        display: none;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 }
